@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jnshuboot.dao.SysRoleUserMapper">
+    <resultMap id="BaseResultMap" type="com.jnshuboot.pojo.SysRoleUser">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="Sys_User_id" jdbcType="INTEGER" property="sysUserId"/>
+        <result column="Sys_Role_id" jdbcType="INTEGER" property="sysRoleId"/>
+        <result column="Sys_User_Name" jdbcType="VARCHAR" property="sysUserName"/>
+        <result column="Sys_Role_Name" jdbcType="VARCHAR" property="sysRoleName"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, Sys_User_id, Sys_Role_id, Sys_User_Name, Sys_Role_Name
+    </sql>
+    <select id="selectByExample" parameterType="com.jnshuboot.pojo.example.SysRoleUserExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from sys_role_user
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test="offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+    <delete id="deleteByExample" parameterType="com.jnshuboot.pojo.example.SysRoleUserExample">
+        delete from sys_role_user
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.jnshuboot.pojo.SysRoleUser">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into sys_role_user (Sys_User_id, Sys_Role_id, Sys_User_Name,
+        Sys_Role_Name)
+        values (#{sysUserId,jdbcType=INTEGER}, #{sysRoleId,jdbcType=INTEGER}, #{sysUserName,jdbcType=VARCHAR},
+        #{sysRoleName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jnshuboot.pojo.SysRoleUser">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into sys_role_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sysUserId != null">
+                Sys_User_id,
+            </if>
+            <if test="sysRoleId != null">
+                Sys_Role_id,
+            </if>
+            <if test="sysUserName != null">
+                Sys_User_Name,
+            </if>
+            <if test="sysRoleName != null">
+                Sys_Role_Name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sysUserId != null">
+                #{sysUserId,jdbcType=INTEGER},
+            </if>
+            <if test="sysRoleId != null">
+                #{sysRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="sysUserName != null">
+                #{sysUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="sysRoleName != null">
+                #{sysRoleName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.jnshuboot.pojo.example.SysRoleUserExample"
+            resultType="java.lang.Long">
+        select count(*) from sys_role_user
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update sys_role_user
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.sysUserId != null">
+                Sys_User_id = #{record.sysUserId,jdbcType=INTEGER},
+            </if>
+            <if test="record.sysRoleId != null">
+                Sys_Role_id = #{record.sysRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="record.sysUserName != null">
+                Sys_User_Name = #{record.sysUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sysRoleName != null">
+                Sys_Role_Name = #{record.sysRoleName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update sys_role_user
+        set id = #{record.id,jdbcType=INTEGER},
+        Sys_User_id = #{record.sysUserId,jdbcType=INTEGER},
+        Sys_Role_id = #{record.sysRoleId,jdbcType=INTEGER},
+        Sys_User_Name = #{record.sysUserName,jdbcType=VARCHAR},
+        Sys_Role_Name = #{record.sysRoleName,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+</mapper>
