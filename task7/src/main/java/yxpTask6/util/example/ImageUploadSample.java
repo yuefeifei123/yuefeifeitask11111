@@ -17,10 +17,10 @@ import java.io.InputStream;
 public class ImageUploadSample {
 
     private static String endpoint = "oss-cn-beijing.aliyuncs.com";
-    private static String accessKeyId = "LTAIRCsXBFyzT2Vh";
-    private static String accessKeySecret = "8FTutNLsK8qJNu7g3epUyzXLFj3VzE";
-    private static String bucketName = "yxp-picture";
-    private static String key = "Iverson1.gif";
+    private static String accessKeyId = "";
+    private static String accessKeySecret = "";
+    private static String bucketName = "";
+    private static String key = "";
 
 
     public static void main(String[] args) throws Exception {
